@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,39 +14,59 @@ class MyApp extends StatelessWidget {
       // Root widget
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('My Home Page'),
+          title: const Text('Login Page'),
         ),
         body: Center(
           child: Builder(
             builder: (context) {
-              return Column(
-                children: [
-                  const Text('Hello, World!'),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      print('Click!');
-                    },
-                    child: const Text('A button'),
-                  ),
-                ],
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 100),
+                child: Column(
+                  children: [
+                    const Text('Flutter',
+                        style: TextStyle(
+                          fontSize: 53,
+                          fontFamily: 'Oswand',
+                          color: Colors.blue,
+                        )),
+                    const SizedBox(height: 20),
+                    TextField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Email',
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    TextField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Password',
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Forgot Password ?',
+                      style: TextStyle(color: Colors.lightBlue),
+                    ),
+                    const SizedBox(height: 8.0),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.lightBlueAccent),
+                      onPressed: () {
+                        print('Click!');
+                      },
+                      child: const Text('login'),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text('New User? Get Account'),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               );
             },
           ),
         ),
       ),
-    );
-  }
-}
-
-class PaddedText extends StatelessWidget {
-  const PaddedText({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: const Text('Hello, World!'),
     );
   }
 }
