@@ -23,12 +23,7 @@ class MyApp extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 100),
                 child: Column(
                   children: [
-                    const Text('Flutter',
-                        style: TextStyle(
-                          fontSize: 53,
-                          fontFamily: 'Oswand',
-                          color: Colors.blue,
-                        )),
+                    Image.asset('logo.png'),
                     const SizedBox(height: 20),
                     TextField(
                       decoration: const InputDecoration(
