@@ -1,70 +1,194 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
+    const String appTitle = 'Flutter layout demo';
     return MaterialApp(
+      title: appTitle,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Container Widget Example'),
+          title: const Text(appTitle),
         ),
-        body: Center(
-          child: Container(
-            height: 230,
-            width: double.infinity,
-            margin: const EdgeInsets.all(20.0),
-            padding: const EdgeInsets.all(15.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: const LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 3, 255, 234),
-                  Colors.blue,
-                  Color.fromARGB(255, 0, 234, 255),
-                  Color.fromARGB(255, 123, 0, 255)
-                ],
-              ),
+        body: const SingleChildScrollView(
+          child: Column(children: [
+            ImageSection(
+              image: 'haha.png',
             ),
+            TitleSection(
+              name: 'Himalaya Mountains',
+              location: 'Everest,Nepal',
+            ),
+            ButtonSection(),
+            TextSection(
+              description:
+                  'The Himalayas are a mountain range in Asia, separating the Indian subcontinent from the Tibetan Plateau. '
+                  'The Himalayas are home to the worlds highest mountains, including Mount Everest and Kangchenjunga'
+                  'Etymologically, Himalaya means "abode of snow" in Sanskrit (from hima "snow", and aalaya "abode").'
+                  'Kandersteg, followed by a half-hour walk through pastures '
+                  'and pine forest, leads you to the lake, which warms to 20 '
+                  'degrees Celsius in the summer. Activities enjoyed here '
+                  'include rowing, and riding the summer toboggan run.',
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+}
+
+class TitleSection extends StatelessWidget {
+  const TitleSection({
+    super.key,
+    required this.name,
+    required this.location,
+  });
+
+  final String name;
+  final String location;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Row(
+        children: [
+          Expanded(
+            /*1*/
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Judul: Benda Flutter',
-                  style: TextStyle(
-                      fontSize: 25,
+                /*2*/
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    name,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-                const SizedBox(height: 12),
-                const Divider(color: Colors.black),
-                const Text(
-                  'Deskripsi: Ini adalah tata letak seperti kartu yang menggunakan widget Kontainer. Ini memiliki padding, margin, dan bayangan kotak.',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 20),
-                SizedBox(
-                    height: 40,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'kunjungi untuk membaca lebih lanjut',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              fontWeight: FontWeight.bold),
-                        )))
+                Text(
+                  location,
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 92, 92, 92),
+                  ),
+                ),
               ],
             ),
           ),
-        ),
+          /*3*/
+          Icon(
+            Icons.star,
+            color: const Color.fromARGB(255, 0, 174, 255),
+          ),
+          const Text('41'),
+        ],
       ),
+    );
+  }
+}
+
+class ButtonSection extends StatelessWidget {
+  const ButtonSection({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final Color color = Theme.of(context).primaryColor;
+    return SizedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ButtonWithText(
+            color: color,
+            icon: Icons.call,
+            label: 'CALL',
+          ),
+          ButtonWithText(
+            color: color,
+            icon: Icons.near_me,
+            label: 'ROUTE',
+          ),
+          ButtonWithText(
+            color: color,
+            icon: Icons.share,
+            label: 'SHARE',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TextSection extends StatelessWidget {
+  const TextSection({
+    super.key,
+    required this.description,
+  });
+
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Text(
+        description,
+        softWrap: true,
+      ),
+    );
+  }
+}
+
+class ButtonWithText extends StatelessWidget {
+  const ButtonWithText({
+    super.key,
+    required this.color,
+    required this.icon,
+    required this.label,
+  });
+  final Color color;
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(icon, color: color),
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ImageSection extends StatelessWidget {
+  const ImageSection({super.key, required this.image});
+
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      image,
+      width: 600,
+      height: 240,
+      fit: BoxFit.cover,
     );
   }
 }
